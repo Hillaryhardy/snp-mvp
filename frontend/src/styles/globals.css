@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Bitcoin-Native Global Styles */
+:root {
+  --bitcoin-orange: #F7931A;
+  --bitcoin-orange-dark: #E67E22;
+  --dark-bg: #0F0F0F;
+  --dark-surface: #1A1A1A;
+  --dark-border: #2A2A2A;
+}
+
+body {
+  @apply bg-dark-bg text-white font-sans antialiased;
+  min-height: 100vh;
+}
+
+/* Bitcoin Glow Effect */
+.bitcoin-glow {
+  box-shadow: 0 0 20px rgba(247, 147, 26, 0.3);
+}
+
+/* Card Styles */
+.card {
+  @apply bg-dark-surface rounded-xl p-6 shadow-card transition-all duration-300;
+  border: 1px solid var(--dark-border);
+}
+
+.card:hover {
+  border-color: rgba(247, 147, 26, 0.3);
+}
+
+/* Button Styles */
+.btn-primary {
+  @apply bg-bitcoin-orange text-white hover:bg-bitcoin-orange-dark 
+         shadow-lg hover:shadow-bitcoin px-6 py-3 rounded-lg font-semibold;
+}
+
+/* APY Display */
+.apy-display {
+  @apply text-2xl font-bold bg-gradient-to-r from-bitcoin-orange to-bitcoin-orange-dark
+         bg-clip-text text-transparent;
+}

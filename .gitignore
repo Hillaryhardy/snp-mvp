@@ -1,0 +1,60 @@
+# Clarinet
+.cache/
+settings/Testnet.toml
+settings/Mainnet.toml
+
+# Environment variables
+.env
+.env.local
+*.private
+*.secret
+
+# Node
+node_modules/
+dist/
+build/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Deployment
+deployments/*.applied
+
+# Private keys
+*mnemonic*
+*private*key*
+*.pem
+
+# ========================================
+# PRIVATE FILES - DO NOT COMMIT
+# ========================================
+
+# Private folder (personal notes, wallet addresses, etc.)
+/PRIVATE/
+*-PRIVATE.md
+*-private.md
+
+# Personal information
+PERSONAL-*.md
+personal-*.md
+MY-*.md
+
+# Wallet addresses & deployment records
+wallet-addresses.txt
+**/wallet-*.txt
+**/keys-*.txt
+DEPLOYMENT-LOG-*.md
+*-testnet-addresses.md
+*-mainnet-addresses.md
+
+# Private notes and strategy
+NOTES-*.md
+STRATEGY-*.md
+TODO-PRIVATE.md
