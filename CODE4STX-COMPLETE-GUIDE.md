@@ -1633,13 +1633,31 @@ SNP represents a **production-ready, well-tested, and market-ready** DeFi protoc
    - Attracts new capital to Stacks
    - Strengthens entire DeFi ecosystem
 
-### Funding Impact
+### Funding Request
 
-**Code4STX funding ($9,000-$11,000) will enable:**
-- Professional security audit ($5-7K)
-- Comprehensive testnet deployment and beta testing ($1K)
-- Post-audit improvements and optimization ($1.5K)
-- Marketing and community building ($1.5K)
+**Medium-Level Grant: $5,000**
+
+Based on Stacks Ascent's five-level grant structure (up to $7,000 maximum), SNP qualifies for a **medium-level grant** given its:
+- Production-ready MVP (15 contracts, 3,200+ lines)
+- 100% test success rate (28/28 tests)
+- Proven track record (3 previous Code4STX completions)
+- First-mover innovation (sBTC-native aggregator)
+
+**Grant Allocation:**
+- Testnet deployment & beta testing: $2,000
+  - Deploy all contracts to testnet
+  - Recruit and support 100+ beta testers
+  - Bug fixes and optimization
+  
+- Security audit preparation: $2,000
+  - Document all security considerations
+  - Implement audit firm recommendations
+  - Code review and hardening
+  
+- Community building & marketing: $1,000
+  - Educational content creation
+  - Community engagement
+  - Launch materials
 
 **Expected Results:**
 - Mainnet launch within 6 months
