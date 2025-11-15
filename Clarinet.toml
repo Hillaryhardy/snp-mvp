@@ -119,5 +119,5 @@ checker = "transactions"
 # ========================================
 
 [accounts.deployer]
-mnemonic = "door camp zero exile goat absorb matrix average dash enemy faith shadow"
+mnemonic = "YOUR_MNEMONIC_HERE"  # ⚠️ NEVER commit your real mnemonic to GitHub!
 balance = 100_000_000_000_000
