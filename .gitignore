@@ -1,5 +1,6 @@
 # Clarinet
 .cache/
+.claude/
 settings/Testnet.toml
 settings/Mainnet.toml
 # Clarinet.toml contains wallet mnemonic - already tracked, use .env instead
