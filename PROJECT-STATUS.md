@@ -260,10 +260,10 @@
 **Founder/Developer:** Matt Glory
 
 - **Email:** mattglory14@gmail.com
-- **Twitter:** [@mattglory14](https://twitter.com/mattglory14)
+- **Twitter:** [@mattglory_](https://twitter.com/mattglory_)
 - **Discord:** geoglory
 - **GitHub:** [@mattglory](https://github.com/mattglory)
-- **Location:** London, UK
+- **Location:** Birmingham, UK
 
 ---
 
