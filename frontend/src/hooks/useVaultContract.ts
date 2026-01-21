@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import {
-  makeContractSTXPostCondition,
+  makeStandardSTXPostCondition,
   FungibleConditionCode,
   PostConditionMode,
   AnchorMode,
@@ -42,21 +42,23 @@ export function useVaultContract(userSession: UserSession) {
     setTxId(null);
 
     try {
+      const userData = userSession.loadUserData();
+      const userAddress = userData.profile.stxAddress.testnet;
+
       await openContractCall({
         contractAddress: CONTRACT_ADDRESS,
         contractName: params.vaultContract,
         functionName: 'deposit',
         functionArgs: [
-          uintCV(params.amount),  // Only one argument!
+          uintCV(params.amount),
         ],
         network,
         anchorMode: AnchorMode.Any,
         postConditionMode: PostConditionMode.Deny,
         postConditions: [
-          makeContractSTXPostCondition(
-            CONTRACT_ADDRESS,
-            params.vaultContract,
-            FungibleConditionCode.LessEqual,
+          makeStandardSTXPostCondition(
+            userAddress,
+            FungibleConditionCode.Equal,
             params.amount
           ),
         ],
