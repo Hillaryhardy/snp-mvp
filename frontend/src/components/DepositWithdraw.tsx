@@ -95,7 +95,14 @@ export function DepositWithdraw({
 
     const sharesMicro = Math.floor(parseFloat(amount) * 1_000_000);
     const slippagePercent = parseFloat(slippage) / 100;
-    const minAssets = Math.floor(sharesMicro * (1 - slippagePercent));
+    
+    // Account for 8% performance fee (800 basis points)
+    // If shares are worth X STX, user receives 0.92 * X after fee
+    // Then apply slippage tolerance on that reduced amount
+    const performanceFeeFactor = 0.92; // 1 - 0.08 (8% fee)
+    const expectedAssetsAfterFee = sharesMicro * performanceFeeFactor;
+    const minAssets = Math.floor(expectedAssetsAfterFee * (1 - slippagePercent));
+    
     const deadline = 999999999;
 
     await withdraw({
@@ -180,10 +187,14 @@ export function DepositWithdraw({
           </div>
         </div>
         <div className="flex items-center justify-between mt-2">
-          {amount && parseFloat(amount) > 0 && (
+          {amount && parseFloat(amount) > 0 && mode === 'withdraw' && (
             <div className="text-xs text-gray-400">
-              ≈ {parseFloat(amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 6 })}
-              {mode === 'deposit' ? ' STX' : ' shares'}
+              After 8% fee: ≈ {(parseFloat(amount) * 0.92).toFixed(6)} STX
+            </div>
+          )}
+          {amount && parseFloat(amount) > 0 && mode === 'deposit' && (
+            <div className="text-xs text-gray-400">
+              ≈ {parseFloat(amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 6 })} STX
             </div>
           )}
           {mode === 'deposit' && stxBalance !== null && (
@@ -231,9 +242,17 @@ export function DepositWithdraw({
             placeholder="Custom"
           />
         </div>
-        <p className="mt-2 text-xs text-gray-500">
-          Your transaction will revert if the price changes more than {slippage}%
-        </p>
+        {mode === 'withdraw' ? (
+          <p className="mt-2 text-xs text-gray-500">
+            Minimum you'll receive: ≈ {amount && parseFloat(amount) > 0 
+              ? (parseFloat(amount) * 0.92 * (1 - parseFloat(slippage) / 100)).toFixed(6) 
+              : '0.000000'} STX (after 8% fee + {slippage}% slippage)
+          </p>
+        ) : (
+          <p className="mt-2 text-xs text-gray-500">
+            Your transaction will revert if the price changes more than {slippage}%
+          </p>
+        )}
       </div>
 
       {/* Submit Button */}
