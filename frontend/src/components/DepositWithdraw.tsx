@@ -19,8 +19,9 @@ export function DepositWithdraw({
   const [amount, setAmount] = useState('');
   const [slippage, setSlippage] = useState('1'); // 1% default
   const [stxBalance, setStxBalance] = useState<number | null>(null);
+  const [shareBalance, setShareBalance] = useState<number | null>(null);
 
-  const { deposit, withdraw, loading, error, txId } = useVaultContract(userSession);
+  const { deposit, withdraw, getShareBalance, loading, error, txId } = useVaultContract(userSession);
 
   // Fetch user's STX balance
   useEffect(() => {
@@ -47,11 +48,30 @@ export function DepositWithdraw({
     fetchBalance();
   }, [isConnected, userSession]);
 
+  // Fetch user's share balance
+  useEffect(() => {
+    if (!isConnected || !userSession.isUserSignedIn()) {
+      setShareBalance(null);
+      return;
+    }
+
+    const fetchShares = async () => {
+      const shares = await getShareBalance(vaultContract);
+      setShareBalance(shares);
+    };
+
+    fetchShares();
+  }, [isConnected, userSession, vaultContract, getShareBalance, mode]);
+
   const handleMaxClick = () => {
-    if (stxBalance !== null) {
+    if (mode === 'deposit' && stxBalance !== null) {
       // Reserve 0.1 STX for gas fees
       const maxAmount = Math.max(0, (stxBalance - 100000) / 1_000_000);
       setAmount(maxAmount.toFixed(6));
+    } else if (mode === 'withdraw' && shareBalance !== null) {
+      // Withdraw all shares
+      const maxShares = shareBalance / 1_000_000;
+      setAmount(maxShares.toFixed(6));
     }
   };
 
@@ -132,7 +152,7 @@ export function DepositWithdraw({
           <label className="block text-sm font-medium text-gray-300">
             {mode === 'deposit' ? 'Amount (STX)' : 'Shares to Withdraw'}
           </label>
-          {mode === 'deposit' && stxBalance !== null && (
+          {((mode === 'deposit' && stxBalance !== null) || (mode === 'withdraw' && shareBalance !== null)) && (
             <button
               onClick={handleMaxClick}
               disabled={loading}
@@ -169,6 +189,11 @@ export function DepositWithdraw({
           {mode === 'deposit' && stxBalance !== null && (
             <div className="text-xs text-gray-500">
               Balance: {(stxBalance / 1_000_000).toFixed(2)} STX
+            </div>
+          )}
+          {mode === 'withdraw' && shareBalance !== null && (
+            <div className="text-xs text-gray-500">
+              Balance: {(shareBalance / 1_000_000).toFixed(6)} Shares
             </div>
           )}
         </div>

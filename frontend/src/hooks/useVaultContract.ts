@@ -1,10 +1,12 @@
 import { useState, useCallback } from 'react';
 import {
   makeStandardSTXPostCondition,
+  makeContractFungiblePostCondition,
   FungibleConditionCode,
   PostConditionMode,
   AnchorMode,
   uintCV,
+  createAssetInfo,
 } from '@stacks/transactions';
 import { StacksTestnet } from '@stacks/network';
 import { UserSession } from '@stacks/connect';
@@ -30,6 +32,44 @@ export function useVaultContract(userSession: UserSession) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [txId, setTxId] = useState<string | null>(null);
+
+  // Helper to get user's share balance
+  const getShareBalance = useCallback(async (vaultContract: string): Promise<number> => {
+    if (!userSession.isUserSignedIn()) {
+      return 0;
+    }
+
+    try {
+      const userData = userSession.loadUserData();
+      const address = userData.profile.stxAddress.testnet;
+
+      // Determine asset name
+      let assetName = 'vault-shares-conservative';
+      if (vaultContract.includes('stx-v2')) {
+        assetName = 'vault-shares';
+      } else if (vaultContract.includes('growth')) {
+        assetName = 'vault-shares-growth';
+      }
+
+      const response = await fetch(
+        `https://api.testnet.hiro.so/extended/v1/address/${address}/balances`
+      );
+      const data = await response.json();
+
+      // Find the fungible token balance
+      const contractId = `${CONTRACT_ADDRESS}.${vaultContract}`;
+      const assetId = `${contractId}::${assetName}`;
+      
+      if (data.fungible_tokens && data.fungible_tokens[assetId]) {
+        return parseInt(data.fungible_tokens[assetId].balance);
+      }
+
+      return 0;
+    } catch (err) {
+      console.error('Error fetching share balance:', err);
+      return 0;
+    }
+  }, [userSession]);
 
   const deposit = useCallback(async (params: DepositParams) => {
     if (!userSession.isUserSignedIn()) {
@@ -90,6 +130,17 @@ export function useVaultContract(userSession: UserSession) {
     setTxId(null);
 
     try {
+      const userData = userSession.loadUserData();
+      const userAddress = userData.profile.stxAddress.testnet;
+
+      // Get contract asset name based on vault
+      let assetName = 'vault-shares-conservative';
+      if (params.vaultContract.includes('stx-v2')) {
+        assetName = 'vault-shares';
+      } else if (params.vaultContract.includes('growth')) {
+        assetName = 'vault-shares-growth';
+      }
+
       await openContractCall({
         contractAddress: CONTRACT_ADDRESS,
         contractName: params.vaultContract,
@@ -101,7 +152,17 @@ export function useVaultContract(userSession: UserSession) {
         ],
         network,
         anchorMode: AnchorMode.Any,
-        postConditionMode: PostConditionMode.Allow,
+        postConditionMode: PostConditionMode.Deny,
+        postConditions: [
+          // User burns their shares
+          makeContractFungiblePostCondition(
+            CONTRACT_ADDRESS,
+            params.vaultContract,
+            FungibleConditionCode.Equal,
+            params.shares,
+            createAssetInfo(CONTRACT_ADDRESS, params.vaultContract, assetName)
+          ),
+        ],
         onFinish: (data: any) => {
           console.log('Withdrawal broadcast!', data.txId);
           setTxId(data.txId);
@@ -122,6 +183,7 @@ export function useVaultContract(userSession: UserSession) {
   return {
     deposit,
     withdraw,
+    getShareBalance,
     loading,
     error,
     txId,
