@@ -4,6 +4,8 @@ import { formatAPY } from './utils/formatting';
 import { VaultCards } from './components/vaults/VaultCards';
 import { VaultManagementPanel } from './components/VaultManagementPanel';
 import { PortfolioSummary } from './components/PortfolioSummary';
+import { TransactionHistory } from './components/TransactionHistory';
+import { PerformanceChart } from './components/PerformanceChart';
 import { useWallet } from './hooks/useWallet';
 
 function App() {
@@ -189,6 +191,22 @@ function App() {
               </div>
             </div>
 
+            {/* Performance & History Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Performance Chart */}
+              <PerformanceChart
+                vaultId={selectedVault}
+                vaultName={selectedVault.charAt(0).toUpperCase() + selectedVault.slice(1)}
+              />
+
+              {/* Transaction History */}
+              <TransactionHistory
+                userAddress={address || ''}
+                limit={8}
+                showFilter={true}
+              />
+            </div>
+
             {/* Protocol Information */}
             <div className="bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 border border-gray-800 rounded-2xl p-8 mt-12">
               <div className="max-w-3xl mx-auto text-center space-y-4">
@@ -271,7 +289,7 @@ function App() {
               <a href="#" className="hover:text-white transition-colors">GitHub</a>
             </div>
             <div className="text-xs text-gray-500">
-              SNP Protocol 2025
+              SNP Protocol 2026
             </div>
           </div>
         </div>
