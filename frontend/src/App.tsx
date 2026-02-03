@@ -283,10 +283,9 @@ function App() {
               <span className="text-sm text-gray-400">Testnet Deployment</span>
             </div>
             <div className="flex space-x-6 text-sm text-gray-400">
-              <a href="#" className="hover:text-white transition-colors">Documentation</a>
-              <a href="#" className="hover:text-white transition-colors">Analytics</a>
-              <a href="#" className="hover:text-white transition-colors">Community</a>
-              <a href="#" className="hover:text-white transition-colors">GitHub</a>
+              <a href="https://docs.stacks.co" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Stacks Docs</a>
+              <a href="https://explorer.hiro.so/address/ST2H682D5RWFBHS1W3ASG3WVP5ARQVN0QABEG9BEA?chain=testnet" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Explorer</a>
+              <a href="https://github.com/mattglory/snp-mvp" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
             </div>
             <div className="text-xs text-gray-500">
               SNP Protocol 2026

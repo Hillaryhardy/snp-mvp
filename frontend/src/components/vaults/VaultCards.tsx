@@ -150,11 +150,14 @@ export function VaultCards({ selectedVault, onVaultSelect, userAddress }: VaultC
       return { tvl: 0, apy: 0, userBalance: 0, change24h: 0 };
     }
 
+    // Calculate expected 24h change based on APY (APY / 365 = daily rate)
+    const dailyRate = vault.baseAPY / 365;
+
     return {
       tvl: vault.baseTVL,
       apy: vault.baseAPY,
       userBalance: userPositions[vaultId] || 0,
-      change24h: (Math.random() - 0.5) * 2, // Still mock for now
+      change24h: dailyRate, // Expected daily yield based on APY
     };
   };
 
@@ -299,7 +302,7 @@ export function VaultCards({ selectedVault, onVaultSelect, userAddress }: VaultC
                           </span>
                         </>
                       )}
-                      <span className="text-[10px] text-gray-500">24h</span>
+                      <span className="text-[10px] text-gray-500">daily</span>
                     </div>
                   </div>
 
