@@ -4,6 +4,8 @@ import { formatAPY } from './utils/formatting';
 import { VaultCards } from './components/vaults/VaultCards';
 import { VaultManagementPanel } from './components/VaultManagementPanel';
 import { PortfolioSummary } from './components/PortfolioSummary';
+import { TransactionHistory } from './components/TransactionHistory';
+import { PerformanceChart } from './components/PerformanceChart';
 import { useWallet } from './hooks/useWallet';
 
 function App() {
@@ -189,6 +191,22 @@ function App() {
               </div>
             </div>
 
+            {/* Performance & History Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Performance Chart */}
+              <PerformanceChart
+                vaultId={selectedVault}
+                vaultName={selectedVault.charAt(0).toUpperCase() + selectedVault.slice(1)}
+              />
+
+              {/* Transaction History */}
+              <TransactionHistory
+                userAddress={address || ''}
+                limit={8}
+                showFilter={true}
+              />
+            </div>
+
             {/* Protocol Information */}
             <div className="bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 border border-gray-800 rounded-2xl p-8 mt-12">
               <div className="max-w-3xl mx-auto text-center space-y-4">
@@ -200,9 +218,9 @@ function App() {
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                   <div className="text-center">
-                    <div className="text-4xl font-bold text-orange-400 mb-2">8%</div>
-                    <div className="text-sm text-gray-400">Performance Fee</div>
-                    <div className="text-xs text-gray-500 mt-1">Charged on profits only</div>
+                    <div className="text-4xl font-bold text-emerald-400 mb-2">0%</div>
+                    <div className="text-sm text-gray-400">Zero Fees</div>
+                    <div className="text-xs text-gray-500 mt-1">Fully self-custodial</div>
                   </div>
                   <div className="text-center">
                     <div className="text-4xl font-bold text-emerald-400 mb-2">24h</div>
@@ -237,9 +255,9 @@ function App() {
             </button>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 w-full max-w-4xl">
               <div className="text-center p-6 bg-gray-900 border border-gray-800 rounded-xl">
-                <div className="text-3xl font-bold text-orange-400 mb-2">8%</div>
-                <div className="text-sm text-gray-400">Performance Fee</div>
-                <div className="text-xs text-gray-500 mt-2">Industry competitive</div>
+                <div className="text-3xl font-bold text-emerald-400 mb-2">0%</div>
+                <div className="text-sm text-gray-400">Zero Fees</div>
+                <div className="text-xs text-gray-500 mt-2">No hidden costs</div>
               </div>
               <div className="text-center p-6 bg-gray-900 border border-gray-800 rounded-xl">
                 <div className="text-3xl font-bold text-emerald-400 mb-2">24h</div>
@@ -265,13 +283,12 @@ function App() {
               <span className="text-sm text-gray-400">Testnet Deployment</span>
             </div>
             <div className="flex space-x-6 text-sm text-gray-400">
-              <a href="#" className="hover:text-white transition-colors">Documentation</a>
-              <a href="#" className="hover:text-white transition-colors">Analytics</a>
-              <a href="#" className="hover:text-white transition-colors">Community</a>
-              <a href="#" className="hover:text-white transition-colors">GitHub</a>
+              <a href="https://docs.stacks.co" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Stacks Docs</a>
+              <a href="https://explorer.hiro.so/address/ST2H682D5RWFBHS1W3ASG3WVP5ARQVN0QABEG9BEA?chain=testnet" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Explorer</a>
+              <a href="https://github.com/mattglory/snp-mvp" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
             </div>
             <div className="text-xs text-gray-500">
-              SNP Protocol 2025
+              SNP Protocol 2026
             </div>
           </div>
         </div>

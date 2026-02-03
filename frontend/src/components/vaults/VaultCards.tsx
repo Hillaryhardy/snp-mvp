@@ -150,11 +150,14 @@ export function VaultCards({ selectedVault, onVaultSelect, userAddress }: VaultC
       return { tvl: 0, apy: 0, userBalance: 0, change24h: 0 };
     }
 
+    // Calculate expected 24h change based on APY (APY / 365 = daily rate)
+    const dailyRate = vault.baseAPY / 365;
+
     return {
       tvl: vault.baseTVL,
       apy: vault.baseAPY,
       userBalance: userPositions[vaultId] || 0,
-      change24h: (Math.random() - 0.5) * 2, // Still mock for now
+      change24h: dailyRate, // Expected daily yield based on APY
     };
   };
 
@@ -299,7 +302,7 @@ export function VaultCards({ selectedVault, onVaultSelect, userAddress }: VaultC
                           </span>
                         </>
                       )}
-                      <span className="text-[10px] text-gray-500">24h</span>
+                      <span className="text-[10px] text-gray-500">daily</span>
                     </div>
                   </div>
 
@@ -350,10 +353,10 @@ export function VaultCards({ selectedVault, onVaultSelect, userAddress }: VaultC
                 </div>
               </div>
 
-              {/* Performance Fee */}
-              <div className="flex items-center justify-between py-3 px-4 bg-gray-900/30 rounded-lg border border-gray-800 mb-4">
-                <span className="text-xs text-gray-400">Performance Fee</span>
-                <span className="text-sm font-bold text-gray-300">8%</span>
+              {/* Zero Fees */}
+              <div className="flex items-center justify-between py-3 px-4 bg-emerald-900/20 rounded-lg border border-emerald-500/20 mb-4">
+                <span className="text-xs text-gray-400">Protocol Fees</span>
+                <span className="text-sm font-bold text-emerald-400">0% - Zero Fees</span>
               </div>
 
               {/* Action Button */}
