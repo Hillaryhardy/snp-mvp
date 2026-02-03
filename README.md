@@ -24,7 +24,7 @@ SNP (Stacks Nexus Protocol) is a **fully self-custodial yield aggregator** built
 - **12 Protocol Integrations**: ALEX, Zest, sBTC, StackSwap, Bitflow, Arkadiko, Hermetica, Velar, STX Stacking, StackingDAO, Granite
 - **Hub-and-Spoke Architecture**: Capital efficient multi-protocol optimization
 - **Smart Allocation Engine**: Automated weighted distribution with diversification limits
-- **8% Performance Fees**: Competitive fee structure aligned with user success
+- **Zero Fees**: No performance fees, no management fees — 100% of yields go to users
 - **Production-Ready**: 3,800+ lines of tested code, 111 tests passing, deployed to testnet (pre-audit)
 
 ---
@@ -49,7 +49,7 @@ SNP (Stacks Nexus Protocol) is a **fully self-custodial yield aggregator** built
 ### What Works
 - ✅ Complete vault deposit/withdraw flows
 - ✅ Multi-strategy allocation system
-- ✅ Performance fee collection (8%)
+- ✅ Zero-fee vault architecture
 - ✅ Emergency pause/resume controls
 - ✅ First depositor attack protection
 - ✅ Slippage and deadline protection
@@ -270,10 +270,10 @@ npx vitest run tests/vault-growth.test.ts
 - Preserves Bitcoin's trust model while enabling DeFi
 - First self-custodial aggregator in Bitcoin L2 ecosystem
 
-**5. Transparent Fees**
-- 8% performance fees (only on profits)
+**5. Zero Fees**
+- No performance fees
 - No management fees
-- No hidden costs
+- No hidden costs — 100% of yields to users
 
 ---
 

@@ -218,9 +218,9 @@ function App() {
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                   <div className="text-center">
-                    <div className="text-4xl font-bold text-orange-400 mb-2">8%</div>
-                    <div className="text-sm text-gray-400">Performance Fee</div>
-                    <div className="text-xs text-gray-500 mt-1">Charged on profits only</div>
+                    <div className="text-4xl font-bold text-emerald-400 mb-2">0%</div>
+                    <div className="text-sm text-gray-400">Zero Fees</div>
+                    <div className="text-xs text-gray-500 mt-1">Fully self-custodial</div>
                   </div>
                   <div className="text-center">
                     <div className="text-4xl font-bold text-emerald-400 mb-2">24h</div>
@@ -255,9 +255,9 @@ function App() {
             </button>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 w-full max-w-4xl">
               <div className="text-center p-6 bg-gray-900 border border-gray-800 rounded-xl">
-                <div className="text-3xl font-bold text-orange-400 mb-2">8%</div>
-                <div className="text-sm text-gray-400">Performance Fee</div>
-                <div className="text-xs text-gray-500 mt-2">Industry competitive</div>
+                <div className="text-3xl font-bold text-emerald-400 mb-2">0%</div>
+                <div className="text-sm text-gray-400">Zero Fees</div>
+                <div className="text-xs text-gray-500 mt-2">No hidden costs</div>
               </div>
               <div className="text-center p-6 bg-gray-900 border border-gray-800 rounded-xl">
                 <div className="text-3xl font-bold text-emerald-400 mb-2">24h</div>
